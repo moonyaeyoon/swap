@@ -6,7 +6,12 @@ import { SwapResult } from "@/types/swap";
 import TokenSearchModal from "@/components/tokenSearchModal";
 import styles from "@/styles/SwapBox.module.css";
 import OptionModal from "@/components/optionModal";
-
+import {StreamProvider} from "@metamask/providers";
+declare global {
+    interface Window {
+        ethereum: StreamProvider;
+    }
+}
 
 interface SwapBoxProps {
     walletAddress: string | null;
@@ -27,8 +32,7 @@ const SwapBox: React.FC<SwapBoxProps> = ({ walletAddress }) => {
         tokenOut: tokenOut as Token,
         amountIn,
         slippage,
-        deadline : Math.floor(Date.now() / 1000) + deadline * 60,
-        walletAddress: walletAddress || "",
+        deadline : Math.floor(Date.now() / 1000) + deadline * 60
     });
 
     const handleTokenSelect = (token: Token) => {

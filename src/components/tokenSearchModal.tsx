@@ -24,8 +24,8 @@ const TokenSearchModal: React.FC<TokenSearchModalProps> = ({isOpen, onClose, onS
             const provider = new ethers.providers.Web3Provider(window.ethereum);
             const token = await fetchTokenInfo(contractAddress, provider); // 서비스 호출
             setTokenInfo(token);
-        } catch (error: any) {
-            setError(error.message);
+        } catch (error) {
+            setError("no token");
         } finally {
             setLoading(false);
         }

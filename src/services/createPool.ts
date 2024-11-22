@@ -1,10 +1,16 @@
+"use client"
 import { ethers } from "ethers";
 import UniswapV3Factory from "@uniswap/v3-core/artifacts/contracts/UniswapV3Factory.sol/UniswapV3Factory.json";
 import UniswapV3Pool from "@uniswap/v3-core/artifacts/contracts/UniswapV3Pool.sol/UniswapV3Pool.json";
 import { FACTORY_ADDRESS } from "@/constants";
 import {Token} from "@uniswap/sdk-core";
 import { getPoolKey, computeAddress } from "@/utils/poolAddress";
-
+import {StreamProvider} from "@metamask/providers";
+declare global {
+    interface Window {
+        ethereum: StreamProvider;
+    }
+}
 const IUniswapV3FactoryABI = UniswapV3Factory.abi;
 const IUniswapV3PoolABI = UniswapV3Pool.abi;
 
@@ -20,6 +26,7 @@ export async function initializePool(tokenA: Token, tokenB: Token, fee: number, 
 
     // To do : 리팩터링 필요
     // 여기에서 오류 발생
+    console.log("hi");
     let poolAddress = await factoryContract.getPool(tokenA.address, tokenB.address, fee);
     //const code = await provider.getCode(poolAddress);
     if (poolAddress === ethers.constants.AddressZero) {

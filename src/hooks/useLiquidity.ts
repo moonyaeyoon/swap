@@ -1,9 +1,8 @@
-import {ethers} from "ethers";
+"use client"
 import { useState } from "react";
-import {liquidityService, increaseLiquidity, removeLiquidity} from "@/services/liquidityService";
+import {addLiquidity, increaseLiquidity, removeLiquidity} from "@/services/liquidityService";
 import {AddLiquidityParams, IncreaseLiquidityParams, LiquidityResponse, RemoveLiquidityParams} from "@/types/liquidity";
 
-const provider = new ethers.providers.Web3Provider(window.ethereum);
 
 export const useLiquidity = () => {
     const [loading, setLoading] = useState(false);
@@ -13,9 +12,10 @@ export const useLiquidity = () => {
         if (!params.token0 || !params.token1) throw new Error("토큰을 선택해 주세요.");
         setLoading(true);
         try {
-            return await liquidityService(params);
-        } catch (err: any) {
-            setError(err.message || "Failed to add liquidity.");
+            return await addLiquidity(params);
+        } catch (error) {
+            console.error(error);
+            setError("Failed to add liquidity.");
             return null;
         } finally {
             setLoading(false);
@@ -28,8 +28,9 @@ export const useLiquidity = () => {
 
         try {
             return await increaseLiquidity(params);
-        } catch (err: any) {
-            setError(err.message || "Failed to increase liquidity.");
+        } catch (error) {
+            console.error(error);
+            setError( "Failed to increase liquidity.");
             return null;
         } finally {
             setLoading(false);
@@ -42,8 +43,9 @@ export const useLiquidity = () => {
 
         try {
             return await removeLiquidity(params);
-        } catch (err: any) {
-            setError(err.message || "Failed to remove liquidity.");
+        } catch (error) {
+            console.error(error);
+            setError("Failed to remove liquidity.");
             return null;
         } finally {
             setLoading(false);

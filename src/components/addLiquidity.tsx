@@ -4,7 +4,6 @@ import { Token } from "@uniswap/sdk-core";
 import { POOL_FEE_TIER } from "@/constants";
 import TokenSearchModal from "@/components/tokenSearchModal";
 import OptionModal from "@/components/optionModal";
-import { ethers } from "ethers";
 import styles from "@/styles/AddLiquidity.module.css";
 
 
@@ -17,8 +16,8 @@ const AddLiquidity: React.FC = () => {
     const [amount1, setAmount1] = useState("");
     const [priceLower, setPriceLower] = useState("");
     const [priceUpper, setPriceUpper] = useState("");
-    const [slippageTolerance, setSlippageTolerance] = useState(0.5);
-    const [deadline, setDeadline] = useState(20);
+    const [slippageTolerance, setSlippageTolerance] = useState<number>(0.5);
+    const [deadline, setDeadline] = useState<number>(20);
     const [showOptionModal, setShowOptionModal] = useState<boolean>(false);
     const { loading, initializeAndAddLiquidity } = useLiquidity();
 

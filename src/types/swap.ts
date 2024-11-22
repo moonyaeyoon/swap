@@ -8,7 +8,6 @@ export interface QuoteParams {
     amountIn: string;
     slippage: number;
     deadline: number;
-    walletAddress: string;
 }
 export interface Transaction {
     from: string;

@@ -6,17 +6,23 @@ import UniswapV3Pool from "@uniswap/v3-core/artifacts/contracts/UniswapV3Pool.so
 import JSBI from "jsbi";
 import {Pool} from "@uniswap/v3-sdk";
 import {FACTORY_ADDRESS} from "@/constants";
-
+import {StreamProvider} from "@metamask/providers";
+declare global {
+    interface Window {
+        ethereum: StreamProvider;
+    }
+}
+const provider = new ethers.providers.Web3Provider(window.ethereum);
 const IUniswapV3FactoryABI = UniswapV3Factory.abi;
 const IUniswapV3PoolABI = UniswapV3Pool.abi;
-const provider = new ethers.providers.Web3Provider(window.ethereum);
 
-export async function fetchLiquidity(tokenIn: Token, tokenOut: Token, fee: number): Promise<Pool> {
+export async function fetchLiquidity(tokenIn: Token, tokenOut: Token, fee: number): Promise<Pool|null> {
     const factoryContract = new ethers.Contract(FACTORY_ADDRESS, IUniswapV3FactoryABI, provider);
 
     const poolAddress = await factoryContract.getPool(tokenIn.address, tokenOut.address, fee);
     if (poolAddress === ethers.constants.AddressZero) {
         console.log("No pool ");
+        return null;
     }
 
     const poolContract = new ethers.Contract(poolAddress, IUniswapV3PoolABI, provider);

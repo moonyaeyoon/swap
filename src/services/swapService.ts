@@ -1,3 +1,4 @@
+"use client"
 import { ethers, BigNumber } from "ethers";
 import {  ROUTER_ADDRESS } from "@/constants";
 import { Token, CurrencyAmount, TradeType, Percent } from "@uniswap/sdk-core";
@@ -6,6 +7,12 @@ import Erc20Contract from "@openzeppelin/contracts/build/contracts/ERC20.json";
 import { fetchLiquidity } from "@/utils/fetchLiquidity";
 import { QuoteParams, QuoteResponse, SwapParams, SwapResult } from "@/types/swap";
 import JSBI from "jsbi";
+import {StreamProvider} from "@metamask/providers";
+declare global {
+    interface Window {
+        ethereum: StreamProvider;
+    }
+}
 
 const Erc20ABI = Erc20Contract.abi;
 const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -19,15 +26,27 @@ export async function getBalance(contractAddress: string, signer: ethers.Signer)
 }
 
 export async function getQuote(params: QuoteParams): Promise<QuoteResponse> {
-    const { tokenIn, tokenOut, amountIn, slippage, deadline,walletAddress } = params;
+    const { tokenIn, tokenOut, amountIn, slippage, deadline } = params;
 
     // 입력 토큰의 양 설정
     const weiAmount = ethers.utils.parseUnits(amountIn.toString(), tokenIn.decimals);
     const currencyAmount = CurrencyAmount.fromRawAmount(tokenIn, JSBI.BigInt(weiAmount.toString()));
 
     // 유동성 조회 및 거래 경로 설정
-    const pool = await fetchLiquidity(tokenIn, tokenOut, 3000);
-    const route = new Route([pool], tokenIn, tokenOut);
+    const feeTiers = [500, 3000, 10000];
+    let pool: Pool | null = null;
+    for (const fee of feeTiers) {
+        try {
+            pool = await fetchLiquidity(tokenIn, tokenOut, fee);
+            if (pool) {
+                console.log(`Found pool with fee tier: ${fee}`);
+                break;
+            }
+        } catch (error) {
+            console.error(`No pool found for fee tier ${fee}`);
+        }
+    }
+    const route = new Route([pool as Pool], tokenIn, tokenOut);
     const trade = await Trade.fromRoute(route, currencyAmount, TradeType.EXACT_INPUT);
 
     // 슬리피지 적용
@@ -37,12 +56,12 @@ export async function getQuote(params: QuoteParams): Promise<QuoteResponse> {
     // 스왑 트랜잭션을 위한 파라미터
     const { calldata, value } = SwapRouter.swapCallParameters([trade], {
         slippageTolerance,
-        recipient: walletAddress,
+        recipient: signer.getAddress().toString(),
         deadline: deadline,
     });
 
     const gasEstimate = await provider.estimateGas({
-        from: walletAddress,
+        from: signer.getAddress(),
         to: ROUTER_ADDRESS,
         value: BigNumber.from(value),
         data: calldata
@@ -50,7 +69,7 @@ export async function getQuote(params: QuoteParams): Promise<QuoteResponse> {
 
     // 트랜잭션 객체 생성
     const transaction = {
-        from: walletAddress,
+        from: signer.getAddress().toString(),
         to: ROUTER_ADDRESS,
         value: BigNumber.from(value),
         data: calldata,
@@ -92,7 +111,6 @@ export async function swapTokens(
     amountIn: string,
     slippage: number,
     deadline: number,
-    walletAddress: string
 ): Promise<SwapResult> {
     const quoteParams: QuoteParams = {
         tokenIn,
@@ -100,7 +118,6 @@ export async function swapTokens(
         amountIn,
         slippage,
         deadline,
-        walletAddress
     };
     const quoteResponse = await getQuote(quoteParams);
 

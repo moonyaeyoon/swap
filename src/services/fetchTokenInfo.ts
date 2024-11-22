@@ -1,6 +1,11 @@
 import { ethers } from "ethers";
 import { Token } from "@uniswap/sdk-core";
-
+import {StreamProvider} from "@metamask/providers";
+declare global {
+    interface Window {
+        ethereum: StreamProvider;
+    }
+}
 
 export const fetchTokenInfo = async (
     contractAddress: string,

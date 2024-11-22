@@ -1,16 +1,23 @@
+
 import { useState } from "react";
 import {SWAP_ROUTER_02_ADDRESSES, Token} from "@uniswap/sdk-core";
 import { getQuote, swapTokens } from "@/services/swapService";
 import { QuoteResponse, SwapResult} from "@/types/swap";
 import SwapRouter from "@uniswap/v3-periphery/artifacts/contracts/SwapRouter.sol/SwapRouter.json";
 import { ethers } from "ethers";
+import {StreamProvider} from "@metamask/providers";
+declare global {
+    interface Window {
+        ethereum: StreamProvider;
+    }
+}
 
 const SWAP_ROUTER_ABI = SwapRouter.abi;
 const provider = new ethers.providers.Web3Provider(window.ethereum);
 const signer = provider.getSigner();
 const chainId = 11155111;
 const ROUTER_ADDRESS = SWAP_ROUTER_02_ADDRESSES(chainId);
-const swapRouterContract = new ethers.Contract(ROUTER_ADDRESS,SWAP_ROUTER_ABI,signer);
+//const swapRouterContract = new ethers.Contract(ROUTER_ADDRESS,SWAP_ROUTER_ABI,signer);
 
 
 
@@ -20,7 +27,6 @@ interface UseSwapParams {
     amountIn: string;
     slippage: number;
     deadline: number;
-    walletAddress: string;
 }
 
 interface UseSwapReturn {
@@ -31,15 +37,15 @@ interface UseSwapReturn {
     executeSwap: () => Promise<SwapResult | null>;
 }
 
-export function useSwap({ tokenIn, tokenOut, amountIn, slippage, deadline,walletAddress }: UseSwapParams): UseSwapReturn {
+export function useSwap({ tokenIn, tokenOut, amountIn, slippage, deadline }: UseSwapParams): UseSwapReturn {
     const [quote, setQuote] = useState<QuoteResponse | null>(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
 
     const fetchQuote = async () => {
-        if (!tokenIn || !tokenOut || !amountIn || !walletAddress) {
-            setError("Invalid input");
+        if (!tokenIn || !tokenOut ||!amountIn) {
+            setError("모두 입력해주세요");
             return;
         }
         setLoading(true);
@@ -51,7 +57,6 @@ export function useSwap({ tokenIn, tokenOut, amountIn, slippage, deadline,wallet
                 amountIn,
                 slippage,
                 deadline,
-                walletAddress,
             });
             console.log("response", response);
             setQuote(response);
@@ -76,8 +81,7 @@ export function useSwap({ tokenIn, tokenOut, amountIn, slippage, deadline,wallet
                 tokenOut,
                 amountIn,
                 slippage,
-                deadline,
-                walletAddress);
+                deadline);
             return result;
         } catch (err) {
             console.error(err);

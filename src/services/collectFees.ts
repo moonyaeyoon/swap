@@ -1,8 +1,14 @@
+"use client"
 import { ethers, Event } from "ethers";
 import {abi as NonfungiblePositionManagerABI} from "@uniswap/v3-periphery/artifacts/contracts/NonfungiblePositionManager.sol/NonfungiblePositionManager.json"
 import { POSITION_MANAGER_ADDRESS } from "@/constants";
 import { TransferHelper } from "@/utils/TransferHelper";
-
+import {StreamProvider} from "@metamask/providers";
+declare global {
+    interface Window {
+        ethereum: StreamProvider;
+    }
+}
 const provider = new ethers.providers.Web3Provider(window.ethereum);
 const signer = provider.getSigner();
 
