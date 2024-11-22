@@ -1,0 +1,51 @@
+/src
+│
+├── /abi
+│   ├── IUniswapV3FactoryABI.ts         // Uniswap V3 Factory ABI
+│   ├── IUniswapV3PoolABI.ts            // Uniswap V3 Pool ABI
+│   ├── YourTokenABI.ts                 // 사용자가 발행한 토큰의 ABI (예: ERC20 기반)
+│   ├── ERC20ABI.json                   // ERC20 ABI
+│   └── NonfungiblePositionManagerABI.json  // Nonfungible Position Manager ABI
+│
+├── /constants
+│   ├── index.ts                        // 네트워크 정보, 수수료 등급, 토큰 주소 등
+│   └── pool.ts                         // Pool 관련 상수 (tick 범위, 기본 Pool 설정 등)
+│
+├── /utils
+│   ├── getPoolAddress.ts               // Pool 주소 조회 유틸리티
+│   ├── createPool.ts                   // Pool 생성 함수
+│   ├── liquidityService.ts                 // 유동성 추가 함수
+│   ├── removeLiquidity.ts              // 유동성 제거 함수
+│   ├── fetchLiquidity.ts               // Pool 유동성 및 가격 정보 조회
+│   ├── swapUtil.ts                     // Uniswap 관련 서비스 로직 (ex: Pool 생성 및 조회, 트랜잭션 실행)
+│   └── format.ts                       // 토큰 금액 USD 변환 유틸리티
+│
+├── /hooks
+│   ├── useSwap.ts                      // Swap 관련 훅
+│   ├── useBalance.ts                   // 사용자 잔고 조회 훅
+│   ├── usePool.ts                      // Pool 정보 관리 훅
+│   ├── useLiquidity.ts                 // 유동성 관리 훅 (유동성 추가/제거, 수수료 수집 등)
+│   └── useCreatePool.ts                // Pool 생성 훅
+│
+├── /services
+│   ├── uniswap.ts                      // Uniswap Pool 및 유동성 관련 서비스 함수
+│   └── etherscan.ts                    // Etherscan API 사용한 토큰 조회 서비스
+│
+├── /components
+│   ├── SwapBox.tsx                     // Swap 인터페이스 컴포넌트
+│   ├── TokenSelect.tsx                 // 토큰 선택 드롭다운 컴포넌트
+│   ├── PoolInfo.tsx                    // Pool 정보 표시 컴포넌트
+│   ├── AddLiquidity.tsx                // 유동성 추가 컴포넌트
+│   ├── RemoveLiquidity.tsx             // 유동성 제거 컴포넌트
+│   └── CreatePool.tsx                  // Pool 생성 컴포넌트
+│
+├── /types
+│   ├── swap.ts                         // Swap 관련 타입 정의
+│   ├── pool.ts                         // Pool 관련 타입 정의
+│   ├── liquidity.ts                    // 유동성 관련 타입 정의 (유동성 추가/제거, 수수료 정보)
+│   └── token.ts                        // 토큰 관련 타입 정의
+│
+└── /pages
+    ├── index.tsx                       // 메인 페이지
+    ├── swapBox.tsx                        // Swap 페이지
+    └── pool.tsx                        // Pool 및 유동성 관리 페이지 (Pool 생성, 유동성 추가/제거 포함)

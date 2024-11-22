@@ -1,0 +1,113 @@
+.container {
+    position: relative;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 30px;
+    font-family: Arial, sans-serif;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #333;
+}
+
+.optionButton {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.optionButton:hover {
+    color: #007bff;
+}
+
+.inputGroup {
+    margin-bottom: 16px;
+}
+
+.inputLabel {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 8px;
+    display: block;
+    text-align: left;
+}
+
+.inputWithButton {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.inputField {
+    flex: 2;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-size: 16px;
+    color: #333;
+    background-color: #f7f7f7;
+}
+
+.selectButton {
+    flex: 1;
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+    background-color: #f7f7f7;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #333;
+    transition: background-color 0.3s;
+    text-align: center;
+}
+
+.selectButton:hover {
+    background-color: #eaeaea;
+}
+
+.alert {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.button {
+    width: 100%;
+    padding: 12px;
+    background-color: #1462c1;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #4e00b3;
+}
+
+.insufficientBalance {
+    text-align: center;
+    font-size: 14px;
+    color: #d32f2f;
+    margin-top: 20px;
+}

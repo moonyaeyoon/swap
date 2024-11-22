@@ -1,0 +1,156 @@
+.container {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 30px;
+    font-family: Arial, sans-serif;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-align: center;
+    color: #333;
+}
+.optionButton {
+    position: relative;
+    left: 550px;
+    top: 10px;
+    background: none;
+    border: none;
+    font-size: 35px;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.optionButton:hover {
+    color: #007bff;
+}
+.selectPair {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap : 10px;
+}
+
+.selectPair button {
+    padding: 10px 50px;
+    border: 1px solid #ddd;
+    background-color: #f7f7f7;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #333;
+    transition: background-color 0.3s;
+}
+
+.selectPair button:hover {
+    background-color: #eaeaea;
+}
+
+.feeTierLabel {
+    font-size: 14px;
+    color: #656464;
+    margin-bottom: 8px;
+    display: block;
+    text-align: left;
+}
+
+.feeOptions {
+    display: flex;
+    gap:100px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.feeOption {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.feeOption:hover {
+    border-color: #656464;
+}
+
+.feeOption input[type="radio"] {
+    display: none;
+}
+
+.feeOption.checked {
+    background-color: #95b4dd;
+    color: #ffffff;
+}
+
+.inputGroup {
+    margin-bottom: 16px;
+}
+
+.inputLabel {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 8px;
+    display: block;
+    text-align: left;
+}
+
+.inputField {
+    width: 95%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-size: 16px;
+    color: #333;
+    background-color: #f7f7f7;
+    margin-bottom: 8px;
+}
+
+.alert {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.note {
+    background-color: #f5e6ff;
+    color: #722ed1;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.button {
+    width: 100%;
+    padding: 12px;
+    background-color: #1462c1;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #4e00b3;
+}
+
+.insufficientBalance {
+    text-align: center;
+    font-size: 14px;
+    color: #d32f2f;
+    margin-top: 20px;
+}

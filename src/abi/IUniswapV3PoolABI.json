@@ -1,0 +1,41 @@
+[
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "liquidity",
+    "outputs": [
+      { "name": "", "type": "uint128" }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "slot0",
+    "outputs": [
+      { "name": "sqrtPriceX96", "type": "uint160" },
+      { "name": "tick", "type": "int24" },
+      { "name": "observationIndex", "type": "uint16" },
+      { "name": "observationCardinality", "type": "uint16" },
+      { "name": "observationCardinalityNext", "type": "uint16" },
+      { "name": "feeProtocol", "type": "uint8" },
+      { "name": "unlocked", "type": "bool" }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "fee",
+    "outputs": [
+      { "name": "", "type": "uint24" }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

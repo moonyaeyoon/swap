@@ -1,0 +1,89 @@
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modalContent {
+    position: relative;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+}
+
+.closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 15px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.title {
+    font-size: 25px; /* 텍스트 크기 줄임 */
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.input {
+    width: 90%; /* 입력 필드 너비를 100%로 설정 */
+    padding: 12px; /* 입력 필드 크기를 키우기 위한 padding */
+    font-size: 18px; /* 입력 필드 텍스트 크기를 크게 설정 */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.searchButton {
+    width: 50%;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #1462c1;
+    color: white;
+    cursor: pointer;
+    align-items: center;
+}
+
+.searchButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    align-items: center;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.tokenInfo {
+    margin-top: 20px;
+    font-size: 25px;
+
+}
+
+.selectButton {
+    padding: 8px 16px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #1462c1;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+}
