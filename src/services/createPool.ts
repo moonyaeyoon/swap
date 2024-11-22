@@ -20,13 +20,12 @@ const signer = provider.getSigner();
 export async function initializePool(tokenA: Token, tokenB: Token, fee: number, sqrtPriceX96: ethers.BigNumber): Promise<string> {
     const factoryContract = new ethers.Contract(FACTORY_ADDRESS, IUniswapV3FactoryABI, signer);
 
-    // const poolKey = getPoolKey(tokenA.address, tokenB.address, fee);
-    // let poolAddress = computeAddress(FACTORY_ADDRESS, poolKey);
+     //const poolKey = getPoolKey(tokenA.address, tokenB.address, fee);
+     //let poolAddress = computeAddress(FACTORY_ADDRESS, poolKey);
 
 
     // To do : 리팩터링 필요
     // 여기에서 오류 발생
-    console.log("hi");
     let poolAddress = await factoryContract.getPool(tokenA.address, tokenB.address, fee);
     //const code = await provider.getCode(poolAddress);
     if (poolAddress === ethers.constants.AddressZero) {
