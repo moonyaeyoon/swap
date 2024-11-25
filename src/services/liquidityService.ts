@@ -46,6 +46,7 @@ export async function addLiquidity(params: AddLiquidityParams): Promise<Liquidit
         recipient: await signer.getAddress(),
         deadline: Math.floor(Date.now() / 1000) + 60 * params.deadline
     });
+    console.log("addLiquidity");
 }
 
 

@@ -1,10 +1,10 @@
 "use client"
 import { ethers } from "ethers";
-import { Token } from "@uniswap/sdk-core";
+import { Token, } from "@uniswap/sdk-core";
 import UniswapV3Factory from "@uniswap/v3-core/artifacts/contracts/UniswapV3Factory.sol/UniswapV3Factory.json";
 import UniswapV3Pool from "@uniswap/v3-core/artifacts/contracts/UniswapV3Pool.sol/UniswapV3Pool.json";
 import JSBI from "jsbi";
-import {Pool} from "@uniswap/v3-sdk";
+import {NoTickDataProvider, Pool, Tick, TickDataProvider, TickListDataProvider} from "@uniswap/v3-sdk";
 import {FACTORY_ADDRESS} from "@/constants";
 import {StreamProvider} from "@metamask/providers";
 declare global {
@@ -27,18 +27,19 @@ export async function fetchLiquidity(tokenIn: Token, tokenOut: Token, fee: numbe
 
     const poolContract = new ethers.Contract(poolAddress, IUniswapV3PoolABI, provider);
 
-
     const liquidity = await poolContract.liquidity();
     const slot0 = await poolContract.slot0();
     const sqrtPriceX96 = JSBI.BigInt(slot0[0].toString());
-    const tick = slot0.tick;
+    const tickCurrent = slot0.tick;
 
-    return new Pool(
+    const pool:Pool = new Pool(
         tokenIn,
         tokenOut,
         fee,
         sqrtPriceX96,
         JSBI.BigInt(liquidity.toString()),
-        tick
+        tickCurrent,
     );
+
+    return pool;
 }

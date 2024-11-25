@@ -19,6 +19,8 @@ export const fetchTokenInfo = async (
 
         const symbol = await tokenContract.symbol();
         const decimals = await tokenContract.decimals();
+        console.log("symbol",symbol);
+        console.log("decimals",decimals);
 
         return new Token(11155111, contractAddress, decimals, symbol);
     } catch (error) {

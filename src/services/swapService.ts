@@ -46,9 +46,10 @@ export async function getQuote(params: QuoteParams): Promise<QuoteResponse> {
             console.error(`No pool found for fee tier ${fee}`);
         }
     }
+
     const route = new Route([pool as Pool], tokenIn, tokenOut);
     const trade = await Trade.fromRoute(route, currencyAmount, TradeType.EXACT_INPUT);
-
+    console.log("trade", trade);
     // 슬리피지 적용
     const slippageTolerance = new Percent(slippage.toString(), "100");
     const minimumAmountOut = trade.minimumAmountOut(slippageTolerance).toSignificant(6);
